@@ -1,0 +1,3 @@
+[submodule "external/numcpp"]
+	path = external/numcpp
+	url = https://github.com/dpilger26/NumCpp.git
