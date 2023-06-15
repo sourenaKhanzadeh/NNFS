@@ -1,3 +1,6 @@
 [submodule "external/numcpp"]
 	path = external/numcpp
 	url = https://github.com/dpilger26/NumCpp.git
+[submodule "external/matplotlibcpp"]
+	path = external/matplotlibcpp
+	url = https://github.com/lava/matplotlib-cpp.git
