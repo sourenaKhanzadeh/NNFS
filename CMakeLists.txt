@@ -22,6 +22,20 @@ target_include_directories(basicnn
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/external/matplotlibcpp>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
+target_include_directories(Main
+        PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_link_libraries(Main PUBLIC
+        NumCpp::NumCpp
+        Boost::date_time
+        Boost::boost
+        Python3::Python
+        Python3::Module
+        Python3::NumPy)
+
+
 target_link_libraries(basicnn PUBLIC
         NumCpp::NumCpp
         Boost::date_time
