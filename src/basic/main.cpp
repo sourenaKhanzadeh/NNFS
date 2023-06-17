@@ -25,12 +25,25 @@ int main() {
     Eigen::MatrixXd target(1, 1);
     target << 0.8;
 
+    Eigen::MatrixXd losses(1, 10000);
+
     for (int i = 0; i < 10000; ++i) {
         nn.backpropagation(input, target);
+        losses(0, i) = (nn.forward(input) - target).array().pow(2).sum();
     }
 
     Eigen::MatrixXd output = nn.forward(input);
     std::cout << "Output after training: \n" << output << std::endl;
+
+    std::vector<double> x(10000);
+    std::vector<double> y(10000);
+    std::iota(x.begin(), x.end(), 0);
+    std::copy(losses.data(), losses.data() + losses.size(), y.begin());
+    plt::title("Loss");
+    plt::xlabel("Epoch");
+    plt::ylabel("Loss");
+    plt::plot(x, y);
+    plt::show();
 
 
     return 0;
