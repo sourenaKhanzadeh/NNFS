@@ -6,21 +6,32 @@
 #include <iostream>
 #include "NumCpp.hpp"
 #include "matplotlibcpp.h"
+#include "NNFS/ActivationFunction.hpp"
+#include "NNFS/NeuralNetwork.hpp"
+#include "NNFS/DenseLayer.hpp"
 
 namespace plt = matplotlibcpp;
 
 int main() {
-    nc::NdArray<int> a = {1, 2, 3};
-    std::cout << a << std::endl;
-    nc::NdArray<int> b = {4, 5, 6};
-    std::cout << b << std::endl;
+    Sigmoid sigmoid;
+    NeuralNetwork nn(0.1);
 
-    std::cout << a + b << std::endl;
-    std::cout << a * b << std::endl;
-    std::cout << a / b << std::endl;
-    std::cout << a - b << std::endl;
-    std::cout << nc::dot(a, b) << std::endl;
-    plt::plot({1,3,2,4});
-    plt::show();
+    nn.addLayer(DenseLayer(2, 3, sigmoid));
+    nn.addLayer(DenseLayer(3, 1, sigmoid));
+
+    Eigen::MatrixXd input(1, 2);
+    input << 1.0, 0.5;
+
+    Eigen::MatrixXd target(1, 1);
+    target << 0.8;
+
+    for (int i = 0; i < 10000; ++i) {
+        nn.backpropagation(input, target);
+    }
+
+    Eigen::MatrixXd output = nn.forward(input);
+    std::cout << "Output after training: \n" << output << std::endl;
+
+
     return 0;
 }

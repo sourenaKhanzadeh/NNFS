@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(Boost REQUIRED COMPONENTS date_time)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 find_package(Python3 COMPONENTS NumPy)
+find_package(Eigen3 REQUIRED)
 
 add_subdirectory(src)
 add_subdirectory(external/numcpp)
@@ -33,7 +34,8 @@ target_link_libraries(Main PUBLIC
         Boost::boost
         Python3::Python
         Python3::Module
-        Python3::NumPy)
+        Python3::NumPy
+        Eigen3::Eigen)
 
 
 target_link_libraries(basicnn PUBLIC
@@ -42,5 +44,6 @@ target_link_libraries(basicnn PUBLIC
         Boost::boost
         Python3::Python
         Python3::Module
-        Python3::NumPy)
+        Python3::NumPy
+        Main)
 
